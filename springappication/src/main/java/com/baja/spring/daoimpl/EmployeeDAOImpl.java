@@ -1,0 +1,31 @@
+package com.baja.spring.daoimpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.baja.spring.bean.Employee;
+import com.baja.spring.dao.EmployeeDAO;
+import com.baja.spring.entity.EmployeeEntity;
+
+@Repository
+public class EmployeeDAOImpl implements EmployeeDAO{
+
+	@Autowired
+	HibernateTemplate hibernateTemplate;
+	
+	@Override
+	@Transactional
+	public int create(Employee employee) {
+		EmployeeEntity employeeEntity = new EmployeeEntity(); 
+		employeeEntity.setDesignation(employee.getDesignation());
+		System.out.println("11324231");
+		employeeEntity.setEmployeeName(employee.getEmployeeName());
+		employeeEntity.setPassword(employee.getPassword());
+		int i = (Integer) hibernateTemplate.save(employeeEntity);
+		System.out.println(i);
+		return i;
+	}
+
+}
